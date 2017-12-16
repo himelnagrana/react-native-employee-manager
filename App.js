@@ -11,15 +11,39 @@ import Topbar from "./components/topbar";
 import Login from "./components/login";
 import MemberList from "./components/member-list";
 import MemberDetails from "./components/member-details";
+import AddMember from "./components/member-add";
 
 export default class App extends Component {
     state = {
         loginVisible: true,
         listVisible: false,
         detailsVisible: false,
+        addMemberVisible: false,
         titleBarRight: "",
         titleBarTitle: "",
-        titleBarLeft: ""
+        titleBarLeft: "",
+        employees : [
+            {
+                name: 'Himel',
+                phone: '123456',
+                shift: 'Saturday'
+            },
+            {
+                name: 'Rana',
+                phone: '123456',
+                shift: 'Saturday'
+            },
+            {
+                name: 'Shuvro',
+                phone: '123456',
+                shift: 'Saturday'
+            },
+            {
+                name: 'Proshad',
+                phone: '123456',
+                shift: 'Saturday'
+            }
+        ]
     };
 
     renderLogin() {
@@ -40,11 +64,23 @@ export default class App extends Component {
                 <MemberList
                     visible={this.state.listVisible}
                     titleBarApi={this.setTitleBar.bind(this)}
+                    employees={this.state.employees}
+                    onAddPress={this.goToMemberList.bind(this)}
                 />
             );
         }
     }
-
+    renderAddMember(){
+        if(this.state.addMemberVisible){
+            return (
+                <AddMember
+                    visible={this.state.addMemberVisible}
+                    titleBarApi={this.setTitleBar.bind(this)}
+                    addNewMember={this.addNewMember.bind(this)}
+                />
+            );
+        }
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -52,9 +88,11 @@ export default class App extends Component {
                     leftText={this.state.titleBarLeft}
                     title={this.state.titleBarTitle}
                     rightText={this.state.titleBarRight}
+                    onAddPress={this.goToAddMemberPage.bind(this)}
                 />
                 {this.renderLogin()}
                 {this.renderEmployeeList()}
+                {this.renderAddMember()}
                 <MemberDetails visible={this.state.detailsVisible}/>
             </View>
         );
@@ -72,8 +110,26 @@ export default class App extends Component {
         this.setState({
             loginVisible: false,
             listVisible: true,
-            detailsVisible: false
+            detailsVisible: false,
+            addMemberVisible: false,
         });
+    }
+    goToAddMemberPage(){
+        this.setState({
+            loginVisible: false,
+            listVisible: false,
+            detailsVisible: false,
+            addMemberVisible: true
+        });
+    }
+    addNewMember(member){
+        this.setState({
+            employees : this.state.employees.concat([member]),
+            loginVisible: false,
+            listVisible: true,
+            detailsVisible: false,
+            addMemberVisible: false,
+        })
     }
 }
 
