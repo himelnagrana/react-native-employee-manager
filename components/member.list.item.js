@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, TouchableWithoutFeedback, Alert } from 'react-native';
 import  CardSection  from './card.section';
 
 class MemberListItem extends Component {
 
-    onRowPress() {
-
+    gotoMember() {
+        this.props.gotoMember(this.props.member)
     }
 
     render() {
-        const { name } = this.props.employee;
+        const { id, name, phone, shift } = this.props.member;
 
         return (
-            <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
+            <TouchableWithoutFeedback onPress={this.gotoMember.bind(this)}>
                 <View>
                     <CardSection>
                         <Text style={styles.titleStyle}>
-                            {name}
+                            {name} - (Ph:{phone}) ({shift})
                         </Text>
                     </CardSection>
                 </View>

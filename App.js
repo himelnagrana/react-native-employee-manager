@@ -9,14 +9,12 @@ import {StyleSheet, View} from "react-native";
 
 import Topbar from "./components/topbar";
 import Login from "./components/login";
-import MemberList from "./components/member-list";
-import MemberDetails from "./components/member-details";
+import Member from "./components/member";
 
 export default class App extends Component {
     state = {
         loginVisible: true,
-        listVisible: false,
-        detailsVisible: false,
+        memberVisible: false,
         titleBarRight: "",
         titleBarTitle: "",
         titleBarLeft: ""
@@ -28,21 +26,35 @@ export default class App extends Component {
                  <Login
                      visible={this.state.loginVisible}
                      titleBarApi={this.setTitleBar.bind(this)}
-                     goToMemberList={this.goToMemberList.bind(this)}
+                     goToMember={this.goToMember.bind(this)}
                  />
              );
          }
     }
 
-    renderEmployeeList() {
-        if(this.state.listVisible){
+    renderMember() {
+        if(this.state.memberVisible){
             return (
-                <MemberList
-                    visible={this.state.listVisible}
+                <Member
                     titleBarApi={this.setTitleBar.bind(this)}
                 />
             );
         }
+    }
+
+    setTitleBar(left, title, right) {
+        this.setState({
+            titleBarRight: left,
+            titleBarTitle: title,
+            titleBarLeft: right
+        });
+    }
+
+    goToMember() {
+        this.setState({
+            loginVisible: false,
+            memberVisible: true,
+        });
     }
 
     render() {
@@ -54,27 +66,12 @@ export default class App extends Component {
                     rightText={this.state.titleBarRight}
                 />
                 {this.renderLogin()}
-                {this.renderEmployeeList()}
-                <MemberDetails visible={this.state.detailsVisible}/>
+                {this.renderMember()}
             </View>
         );
     }
 
-    setTitleBar(left, title, right) {
-        this.setState({
-            titleBarRight: left,
-            titleBarTitle: title,
-            titleBarLeft: right
-        });
-    }
-
-    goToMemberList() {
-        this.setState({
-            loginVisible: false,
-            listVisible: true,
-            detailsVisible: false
-        });
-    }
+    
 }
 
 const styles = StyleSheet.create({

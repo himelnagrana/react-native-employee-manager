@@ -23,7 +23,7 @@ export default class Login extends Component {
 
     onButtonPress() {
         if (this.emailAddress.length > 0 && this.password.length > 0) {
-            this.props.goToMemberList();
+            this.props.goToMember();
         }
     }
 

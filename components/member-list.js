@@ -1,50 +1,55 @@
 import React, {Component} from "react";
 import {ListView, View} from "react-native";
 import MemberListItem from './member.list.item';
+import Button from './buttons'
+import Card from './card';
+import CardSection from './card.section';
 
 export default class MemberList extends Component {
 
-    constructor() {
-        super();
-        this.employees = [
-            {'name': 'Himel'},
-            {'name': 'Rana'},
-            {'name': 'Shuvro'},
-            {'name': 'Proshad'}
-        ];
-    }
-
     componentWillMount() {
-        this.createDataSource();
+        this.createDataSource()
     }
 
     createDataSource(){
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
-        this.dataSource = ds.cloneWithRows(this.employees);
+        this.dataSource = ds.cloneWithRows(this.props.allmembers)
     }
 
-    componentDidMount() {
-        if (this.props.visible)
-            this.props.titleBarApi("", "Employees", "Add");
+    renderRow(member) {
+        return <MemberListItem 
+                    member={member}
+                    gotoMember={this.gotoMember.bind(this)}
+                />
     }
 
-    renderRow(employee) {
-        return <MemberListItem employee={employee}/>;
+    onButtonPress() {
+        this.props.goToDetail()
+    }
+
+    gotoMember(emp) {
+        this.props.gotoMember(emp)
     }
 
     render() {
-        if (this.props.visible) {
-            return (
+        return (
+            <View>
                 <ListView
                     enableEmptySections
                     dataSource={this.dataSource}
-                    renderRow={this.renderRow}
+                    renderRow={this.renderRow.bind(this)}
                 />
-            );
-        } else {
-            return <View/>;
-        }
+                <Card>
+                    <CardSection>
+                        <Button onPress={this.onButtonPress.bind(this)}>
+                            Add Member
+                        </Button>
+                    </CardSection>
+                </Card>
+            </View>
+        )
+       
     }
 }
