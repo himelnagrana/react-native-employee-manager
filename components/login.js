@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {View, Alert} from 'react-native';
 import Card from './card';
 import CardSection from './card.section';
 import Input from './input';
@@ -22,8 +22,11 @@ export default class Login extends Component {
     }
 
     onButtonPress() {
-        if (this.emailAddress.length > 0 && this.password.length > 0) {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+        if (this.emailAddress.length > 0 && this.password.length > 0 && reg.test(this.emailAddress) === true) {
             this.props.goToMember();
+        } else {
+            Alert.alert('Incorrect login credentials')
         }
     }
 
