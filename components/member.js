@@ -84,10 +84,11 @@ export default class Member extends Component {
     addMember(emp) {
         const objIndex = this.allmembers.findIndex(o => o.id === emp.id)
         if(objIndex > -1) {
-            this.allmembers.splice(objIndex, 1)
+            this.allmembers[objIndex] = emp
+        } else {
+            emp.id = Math.floor(Math.random() * 99 + 1)
+            this.allmembers.push(emp)
         }
-        emp.id = Math.floor(Math.random() * 99 + 1)
-        this.allmembers.push(emp)
         this.loadThisMember = ''
         this.setState({
             detailVisible: false,
