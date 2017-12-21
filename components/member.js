@@ -80,13 +80,12 @@ export default class Member extends Component {
         });
     }
     
-    
     addMember(emp) {
         const objIndex = this.allmembers.findIndex(o => o.id === emp.id)
         if(objIndex > -1) {
             this.allmembers[objIndex] = emp
         } else {
-            emp.id = Math.floor(Math.random() * 99 + 1)
+            emp.id = Date.now()
             this.allmembers.push(emp)
         }
         this.loadThisMember = ''

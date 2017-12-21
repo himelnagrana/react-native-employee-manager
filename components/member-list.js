@@ -1,22 +1,11 @@
 import React, {Component} from "react";
-import {ListView, View} from "react-native";
+import {FlatList, View, Text} from "react-native";
 import MemberListItem from './member.list.item';
 import Button from './buttons'
 import Card from './card';
 import CardSection from './card.section';
 
 export default class MemberList extends Component {
-
-    componentWillMount() {
-        this.createDataSource()
-    }
-
-    createDataSource(){
-        const ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
-        this.dataSource = ds.cloneWithRows(this.props.allmembers)
-    }
 
     renderRow(member) {
         return <MemberListItem 
@@ -36,10 +25,10 @@ export default class MemberList extends Component {
     render() {
         return (
             <View>
-                <ListView
-                    enableEmptySections
-                    dataSource={this.dataSource}
-                    renderRow={this.renderRow.bind(this)}
+                <FlatList
+                    data={this.props.allmembers}
+                    renderItem={({item}) => this.renderRow(item)}
+                    keyExtractor={item => item.id}
                 />
                 <Card>
                     <CardSection>
