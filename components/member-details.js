@@ -67,6 +67,26 @@ export default class MemberDetails extends Component {
     this.props.goToList();
   }
 
+  renderFireButton() {
+    if(this.state.id) {
+      return (
+        <CardSection>
+            <Button onPress={() => Alert.alert(
+                                  'Are you sure you want to delete this?',
+                                  '',
+                                  [
+                                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+                                    {text: 'OK', onPress: this.onFirePress.bind(this)},
+                                  ],
+                                  { cancelable: false }
+                                )}>
+                Fire Employee
+            </Button>
+        </CardSection>
+      )
+    }
+  }
+
   render() {
     return (
       <Card>
@@ -101,24 +121,9 @@ export default class MemberDetails extends Component {
                 Save Changes
             </Button>
         </CardSection>
-        <CardSection>
-            <Button onPress={this.onTextSchedulePress.bind(this)}>
-                Text Schedule
-            </Button>
-        </CardSection>
-        <CardSection>
-            <Button onPress={() => Alert.alert(
-                                  'Are you sure you want to delete this?',
-                                  '',
-                                  [
-                                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-                                    {text: 'OK', onPress: this.onFirePress.bind(this)},
-                                  ],
-                                  { cancelable: false }
-                                )}>
-                Fire Employee
-            </Button>
-        </CardSection>
+
+        {this.renderFireButton()}
+        
         <CardSection>
             <Button onPress={this.onBackPress.bind(this)}>
                 Back To List
