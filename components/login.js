@@ -1,32 +1,38 @@
 import React, {Component} from 'react';
 import {View, Alert} from 'react-native';
-import Card from './card';
-import CardSection from './card.section';
-import Input from './input';
-import Button from './buttons';
+import { FormLabel, FormInput, Button, Card, FormValidationMessage } from 'react-native-elements'
 
 export default class Login extends Component {
 
     constructor() {
         super()
-        this.emailAddress = '';
-        this.password = '';
-    }
-
-    onEmailChange(text) {
-        this.emailAddress = text;
-    }
-
-    onPasswordChange(text) {
-        this.password = text;
+        this.emailAddress = ''
+        this.password = ''
+        this.state = {
+            emailError : '',
+            passwordError : '',
+        }
     }
 
     onButtonPress() {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
-        if (this.emailAddress.length > 0 && this.password.length > 0 && reg.test(this.emailAddress) === true) {
+        if (this.emailAddress.length > 0 && this.password.length > 0) {
             this.props.goToMember();
         } else {
-            Alert.alert('Incorrect login credentials')
+            Alert.alert('Email or password empty')
+        }
+    }
+
+    onBlurEmail() {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ 
+        if(reg.test(this.emailAddress) === false) {
+            this.setState({
+                emailError : 'Malformed email address but nevermind :)'
+            })
+        } else {
+            this.setState({
+                emailError : ''
+            })
         }
     }
 
@@ -39,26 +45,29 @@ export default class Login extends Component {
         if (this.props.visible) {
             return (
                 <Card>
-                    <CardSection>
-                        <Input
-                            label="Email"
-                            placeholder="email@gmail.com"
-                            onChangeText={this.onEmailChange.bind(this)}
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <Input
-                            secureTextEntry
-                            label="password"
-                            placeholder="password"
-                            onChangeText={this.onPasswordChange.bind(this)}
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <Button onPress={this.onButtonPress.bind(this)}>
-                            Login
-                        </Button>
-                    </CardSection>
+                    <FormLabel>Email</FormLabel>
+                    <FormInput 
+                        onChangeText={email => this.emailAddress = email}
+                        onBlur={this.onBlurEmail.bind(this)}
+                        placeholder="example:probal@cefalo.com"
+                        autoFocus={true} /> 
+                    <FormValidationMessage>
+                        {this.state.emailError}
+                    </FormValidationMessage>
+
+                    <FormLabel>Password</FormLabel>
+                    <FormInput 
+                        secureTextEntry
+                        onChangeText={password => this.password = password}/> 
+                    <FormValidationMessage>
+                        {this.passwordError}
+                    </FormValidationMessage>
+                    
+                    <Button 
+                        onPress={this.onButtonPress.bind(this)}
+                        title={'Login'}
+                        buttonStyle={{borderRadius: 10, marginTop: 20}}
+                        textStyle={{textAlign: 'center', fontWeight: 'bold'}}/>                     
                 </Card>
             );
         } else {
