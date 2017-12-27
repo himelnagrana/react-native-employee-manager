@@ -1,11 +1,20 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View, DatePickerIOS } from "react-native";
 import Card from './card';
 import CardSection from './card.section';
 import Input from './input';
 import Button from './buttons';
+import DatePicker from './date-picker'
+import datePicker from "./date-picker";
 
 export default class MemberDetails extends Component {
+
+  onDateChange(date) {
+    this.setState({
+      date: date
+    });
+  }
+
   render() {
     return (
       <Card>
@@ -18,19 +27,13 @@ export default class MemberDetails extends Component {
           </CardSection>
           <CardSection>
               <Input
-                  secureTextEntry
                   label="Phone"
                   placeholder="Contact number"
                   // onChangeText={this.onPasswordChange.bind(this)}
               />
           </CardSection>
           <CardSection>
-              <Input
-                  secureTextEntry
-                  label="Shift"
-                  placeholder="Shift"
-                  // onChangeText={this.onPasswordChange.bind(this)}
-              />
+              <DatePicker/>
           </CardSection>
           <CardSection >
               {/* <Button onPress={this.onButtonPress.bind(this)}> */}
