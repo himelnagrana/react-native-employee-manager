@@ -5,7 +5,7 @@
  */
 
 import React, {Component} from "react";
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, View, DatePickerIOS, DatePickerAndroid} from "react-native";
 
 import Topbar from "./components/topbar";
 import Login from "./components/login";
@@ -21,6 +21,10 @@ export default class App extends Component {
         titleBarTitle: "",
         titleBarLeft: ""
     };
+
+    addNewMember(){
+        console.warn("Got is")
+    }
 
     renderLogin() {
          if(this.state.loginVisible){
@@ -52,6 +56,7 @@ export default class App extends Component {
                     leftText={this.state.titleBarLeft}
                     title={this.state.titleBarTitle}
                     rightText={this.state.titleBarRight}
+                    addNewMember = {this.addNewMember}
                 />
                 {this.renderLogin()}
                 {this.renderEmployeeList()}
