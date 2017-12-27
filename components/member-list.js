@@ -1,50 +1,44 @@
 import React, {Component} from "react";
-import {ListView, View} from "react-native";
+import {FlatList, View, Text} from "react-native";
 import MemberListItem from './member.list.item';
+import Button from './buttons'
+import Card from './card';
+import CardSection from './card.section';
 
 export default class MemberList extends Component {
 
-    constructor() {
-        super();
-        this.employees = [
-            {'name': 'Himel'},
-            {'name': 'Rana'},
-            {'name': 'Shuvro'},
-            {'name': 'Proshad'}
-        ];
+    renderRow(member) {
+        return <MemberListItem 
+                    member={member}
+                    gotoMember={this.gotoMember.bind(this)}
+                />
     }
 
-    componentWillMount() {
-        this.createDataSource();
+    onButtonPress() {
+        this.props.goToDetail()
     }
 
-    createDataSource(){
-        const ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
-        this.dataSource = ds.cloneWithRows(this.employees);
-    }
-
-    componentDidMount() {
-        if (this.props.visible)
-            this.props.titleBarApi("", "Employees", "Add");
-    }
-
-    renderRow(employee) {
-        return <MemberListItem employee={employee}/>;
+    gotoMember(emp) {
+        this.props.gotoMember(emp)
     }
 
     render() {
-        if (this.props.visible) {
-            return (
-                <ListView
-                    enableEmptySections
-                    dataSource={this.dataSource}
-                    renderRow={this.renderRow}
+        return (
+            <View>
+                <FlatList
+                    data={this.props.allmembers}
+                    renderItem={({item}) => this.renderRow(item)}
+                    keyExtractor={item => item.id}
                 />
-            );
-        } else {
-            return <View/>;
-        }
+                <Card>
+                    <CardSection>
+                        <Button onPress={this.onButtonPress.bind(this)}>
+                            Add Member
+                        </Button>
+                    </CardSection>
+                </Card>
+            </View>
+        )
+       
     }
 }
