@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import Button from './buttons';
 
 export default class Topbar extends Component {
     render() {
         return (
             <View style={styles.container}>
                 <Text>{this.props.leftText}</Text>
-                <Text style={styles.textStyle}>{this.props.title}</Text>
-                <Text style={styles.textStyle}>{this.props.rightText}</Text>
+                <Text style={styles.textStyle} onPress={this.props.onAddPress}>{this.props.title}</Text>
+                <Text onPress={this.props.onAddPress.bind(this)}>{this.props.rightText}</Text>
+                {/* <Button onPress={this.props.onAddPress.bind(this)}>
+                    Login
+                </Button> */}
             </View>
         );
     }
