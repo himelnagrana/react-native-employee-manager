@@ -50,7 +50,8 @@ export default class Login extends Component {
                         onChangeText={email => this.emailAddress = email}
                         onBlur={this.onBlurEmail.bind(this)}
                         placeholder="example:probal@cefalo.com"
-                        autoFocus={true} /> 
+                        autoFocus={true} 
+                        autoCorrect={false} /> 
                     <FormValidationMessage>
                         {this.state.emailError}
                     </FormValidationMessage>
