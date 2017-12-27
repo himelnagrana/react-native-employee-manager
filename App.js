@@ -23,7 +23,8 @@ export default class App extends Component {
     };
 
     addNewMember(){
-        console.warn("Got is")
+        
+        this.goToMemberDetails();
     }
 
     renderLogin() {
@@ -49,6 +50,14 @@ export default class App extends Component {
         }
     }
 
+    renderEmployeeDetails() {
+        if(this.state.detailsVisible){
+            return (
+                <MemberDetails/>
+            );
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -56,11 +65,11 @@ export default class App extends Component {
                     leftText={this.state.titleBarLeft}
                     title={this.state.titleBarTitle}
                     rightText={this.state.titleBarRight}
-                    addNewMember = {this.addNewMember}
+                    addNewMember = {this.addNewMember.bind(this)}
                 />
                 {this.renderLogin()}
                 {this.renderEmployeeList()}
-                <MemberDetails visible={this.state.detailsVisible}/>
+                {this.renderEmployeeDetails()}
             </View>
         );
     }
@@ -78,6 +87,18 @@ export default class App extends Component {
             loginVisible: false,
             listVisible: true,
             detailsVisible: false
+        });
+    }
+
+    goToMemberDetails () {
+        
+        this.setState({
+            loginVisible: false,
+            listVisible: false,
+            detailsVisible: true,
+            titleBarTitle: "Add new member",
+            titleBarLeft: "",
+            titleBarRight: "<"
         });
     }
 }
