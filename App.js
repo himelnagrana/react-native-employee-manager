@@ -14,6 +14,7 @@ import MemberDetails from "./components/member-details";
 import EmployeeForm from "./components/employee-form";
 
 export default class App extends Component {
+
   state = {
     loginVisible: true,
     listVisible: false,
@@ -21,7 +22,8 @@ export default class App extends Component {
     employeeFromVisible: false,
     titleBarLeft: "",
     titleBarRight: "",
-    titleBarTitle: ""
+    titleBarTitle: "",
+    dataEmployees: [{'name': 'Himel'}, {'name': 'Rana'}, {'name': 'Shuvro'}, {'name': 'Proshad'}]
   };
 
   renderEmployeeForm() {
@@ -29,8 +31,10 @@ export default class App extends Component {
       return (
           <EmployeeForm
               visible={this.state.employeeFromVisible}
+              dataEmployee={this.state.dataEmployees}
               titleBarApi={this.setTitleBar.bind(this)}
               goToMemberList={this.goToMemberList.bind(this)}
+              reloadEmployeeList={this.reloadEmployeeList.bind(this)}
           />
       );
     }
@@ -54,6 +58,7 @@ export default class App extends Component {
           <MemberList
               visible={this.state.listVisible}
               titleBarApi={this.setTitleBar.bind(this)}
+              dataEmployee={this.state.dataEmployees}
           />
       );
     }
@@ -99,6 +104,12 @@ export default class App extends Component {
       listVisible: false,
       detailsVisible: false,
       employeeFromVisible: true
+    });
+  }
+
+  reloadEmployeeList(employees) {
+    this.setState({
+      dataEmployees: employees
     });
   }
 }

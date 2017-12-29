@@ -16,10 +16,15 @@ export default class EmployeeForm extends Component {
     this.userName = text;
   }
 
+  newEmployeeList() {
+    this.props.dataEmployee.push({name: this.userName});
+    return this.props.dataEmployee;
+  }
 
   onButtonPress() {
     if (this.userName.length > 0) {
       this.props.goToMemberList();
+      this.props.reloadEmployeeList(this.newEmployeeList());
     }
   }
 
