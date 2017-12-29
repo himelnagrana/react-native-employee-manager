@@ -11,19 +11,29 @@ import Topbar from "./components/topbar";
 import Login from "./components/login";
 import MemberList from "./components/member-list";
 import MemberDetails from "./components/member-details";
+import EmployeeForm from "./components/employee-form";
 
 export default class App extends Component {
   state = {
     loginVisible: true,
     listVisible: false,
     detailsVisible: false,
+    employeeFromVisible: false,
     titleBarLeft: "",
     titleBarRight: "",
     titleBarTitle: ""
   };
 
-  addEmployee() {
-    console.warn("whats wrong")
+  renderEmployeeForm() {
+    if (this.state.employeeFromVisible) {
+      return (
+          <EmployeeForm
+              visible={this.state.employeeFromVisible}
+              titleBarApi={this.setTitleBar.bind(this)}
+              goToMemberList={this.goToMemberList.bind(this)}
+          />
+      );
+    }
   }
 
   renderLogin() {
@@ -56,10 +66,11 @@ export default class App extends Component {
               leftText={this.state.titleBarLeft}
               title={this.state.titleBarTitle}
               rightText={this.state.titleBarRight}
-              addEmployee={this.addEmployee.bind(this)}
+              goToEmployeeForm={this.goToEmployeeForm.bind(this)}
           />
           {this.renderLogin()}
           {this.renderEmployeeList()}
+          {this.renderEmployeeForm()}
           <MemberDetails visible={this.state.detailsVisible}/>
         </View>
     );
@@ -77,7 +88,17 @@ export default class App extends Component {
     this.setState({
       loginVisible: false,
       listVisible: true,
-      detailsVisible: false
+      detailsVisible: false,
+      employeeFromVisible: false
+    });
+  }
+
+  goToEmployeeForm() {
+    this.setState({
+      loginVisible: false,
+      listVisible: false,
+      detailsVisible: false,
+      employeeFromVisible: true
     });
   }
 }

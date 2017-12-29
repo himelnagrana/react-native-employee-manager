@@ -6,7 +6,7 @@ export default class Topbar extends Component {
   render() {
     return (
         <View style={styles.container}>
-          <TouchableOpacity onPress={this.props.addEmployee}>
+          <TouchableOpacity onPress={this.props.goToEmployeeForm}>
             <Text>{this.props.rightText}</Text>
           </TouchableOpacity>
           <Text style={styles.textStyle}>{this.props.title}</Text>
