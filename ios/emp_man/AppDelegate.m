@@ -20,10 +20,16 @@
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
+  NSArray *imageList = @[@"http://www.thinkgeek.com/images/products/frontsquare/jvkn_sw_beak_back_buddy.jpg",
+                         @"https://images-na.ssl-images-amazon.com/images/I/41yAU9p60jL._SY300_.jpg"];
+  
+  NSDictionary *props = @{@"imageBrowserImages" : imageList};
+  
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"emp_man"
-                                               initialProperties:nil
+                                               initialProperties:props
                                                    launchOptions:launchOptions];
+  
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

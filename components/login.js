@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, Platform } from "react-native";
 import Card from "./card";
 import CardSection from "./card.section";
 import Input from "./input";
 import Button from "./buttons";
+import EmpManToast from "./EmpManToast";
+import EmpManCalendarManager from "./EmpManCalendarManager";
 
 export default class Login extends Component {
   constructor() {
@@ -21,6 +23,17 @@ export default class Login extends Component {
   }
 
   onButtonPress() {
+    if (Platform.OS == "android") {
+      EmpManToast.show("Awesome", EmpManToast.LONG);
+    }
+
+    if (Platform.OS == "ios") {
+      EmpManCalendarManager.addEvent(
+        "Birthday Party",
+        "4 Privet Drive, Surrey"
+      );
+    }
+
     if (this.emailAddress.length > 0 && this.password.length > 0) {
       this.props.goToMemberList();
     }
