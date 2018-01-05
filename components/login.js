@@ -30,7 +30,7 @@ export default class Login extends Component {
     if (Platform.OS == "ios") {
       EmpManCalendarManager.addEvent(
         "Birthday Party",
-        "4 Privet Drive, Surrey"
+        "Rokibul's Birthday Today!!!"
       );
     }
 

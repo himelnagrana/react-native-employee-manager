@@ -16,6 +16,7 @@ RCT_EXPORT_MODULE(EmpManCalendarManager);   // for naming the module as Calendar
 
 RCT_EXPORT_METHOD(addEvent:(NSString *)name location:(NSString *)location)
 {
+  NSLog(@"NSLOG: Pretending to create an event %@ at %@", name, location);
   RCTLogInfo(@"Pretending to create an event %@ at %@", name, location);
 }
 
