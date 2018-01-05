@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 export default class Topbar extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <Text>{this.props.leftText}</Text>
+                <View style={styles.container}>
+                <TouchableOpacity onPress = {this.props.addNewMember} >
+                    <Text>{this.props.leftText}</Text>
+                </TouchableOpacity>
                 <Text style={styles.textStyle}>{this.props.title}</Text>
                 <Text style={styles.textStyle}>{this.props.rightText}</Text>
             </View>
