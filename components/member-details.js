@@ -6,7 +6,11 @@ import Input from './input'
 import Picker from './picker'
 import Button from './buttons'
 
-export default class MemberDetails extends Component {
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
+import { createMember, deleteMember, updateMember, loadMember } from '../actions';
+
+class MemberDetails extends Component {
 
   constructor() {
     super()
@@ -59,14 +63,6 @@ export default class MemberDetails extends Component {
     }
   }
 
-  onTextSchedulePress() {
-    Alert.alert('Text Schedule')
-  }
-
-  onBackPress() {
-    this.props.goToList();
-  }
-
   renderFireButton() {
     if(this.state.id) {
       return (
@@ -88,6 +84,14 @@ export default class MemberDetails extends Component {
   }
 
   render() {
+
+    const {
+      createMember,
+      deleteMember,
+      updateMember,
+      loadMember
+    } = this.props;
+
     return (
       <Card>
         <CardSection>
@@ -124,12 +128,18 @@ export default class MemberDetails extends Component {
 
         {this.renderFireButton()}
         
-        <CardSection>
-            <Button onPress={this.onBackPress.bind(this)}>
-                Back To List
-            </Button>
-        </CardSection>
       </Card>
     )
   }
 }
+
+const mapStateToProps = state => ({
+  ...state.memberForm,
+});
+
+const mapDispatchToProps = dispatch => ({
+  addMember: (emp) =>
+      dispatch(createMember(emp)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MemberDetails);

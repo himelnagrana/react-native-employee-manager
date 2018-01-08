@@ -5,7 +5,11 @@ import Button from './buttons'
 import Card from './card';
 import CardSection from './card.section';
 
-export default class MemberList extends Component {
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
+
+
+class MemberList extends Component {
 
     renderRow(member) {
         return <MemberListItem 
@@ -14,25 +18,31 @@ export default class MemberList extends Component {
                 />
     }
 
-    onButtonPress() {
-        this.props.goToDetail()
+    onAddPress() {
+        this.props.navigation.navigate('MemberDetails');
     }
 
     gotoMember(emp) {
-        this.props.gotoMember(emp)
+        // with a row data
+        this.props.navigation.navigate('MemberDetails');
     }
 
     render() {
+
+        const {
+            allMembers
+          } = this.props;
+
         return (
             <View>
                 <FlatList
-                    data={this.props.allmembers}
+                    data={allMembers}
                     renderItem={({item}) => this.renderRow(item)}
                     keyExtractor={item => item.id}
                 />
                 <Card>
                     <CardSection>
-                        <Button onPress={this.onButtonPress.bind(this)}>
+                        <Button onPress={this.onAddPress.bind(this)}>
                             Add Member
                         </Button>
                     </CardSection>
@@ -42,3 +52,13 @@ export default class MemberList extends Component {
        
     }
 }
+
+const mapStateToProps = state => ({
+    ...state.members,
+  });
+  
+  const mapDispatchToProps = dispatch => ({
+    
+  });
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(MemberList);

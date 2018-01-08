@@ -7,6 +7,10 @@
 import React, {Component} from "react";
 import {StyleSheet, View, Alert} from "react-native";
 
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
+import { loginUserAsync } from '../actions';
+
 import MemberList from "./member-list";
 import MemberDetails from "./member-details";
 
@@ -20,6 +24,18 @@ export default class Member extends Component {
         this.loadThisMember = ''
     }
 
+    static navigationOptions = ({ navigation }) => {
+        const { params = {} } = navigation.state;
+        let headerRight = (
+          <Button
+            title="Save"
+            onPress={params.addMember ? params.addMember : () => null}
+          />
+        );
+        return { headerRight };
+    };
+    
+
     state = {
         listVisible: true,
         detailVisible: false,
@@ -30,6 +46,7 @@ export default class Member extends Component {
 
     componentDidMount() {
         this.props.titleBarApi("", "Member", "");
+        this.props.navigation.setParams({ addMember: this.addMember });
     }
 
     renderDetail() {
