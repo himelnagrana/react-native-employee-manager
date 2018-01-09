@@ -1,4 +1,3 @@
-import { NavigationActions } from 'react-navigation';
 import { navigationResetTo } from '../GlobalNavigator';
 
 import {
@@ -7,15 +6,15 @@ import {
     LOGIN_USER
 } from './types';
 
-export const loginUserAsync = ({ email, password }) => {
+export const loginUserAsync = ( email, password ) => {
     return (dispatch) => {
         dispatch({ type: LOGIN_USER });
         setTimeout(() => {
             const random = Math.random();
-            if (random >= 0.75) {
+            if (random >= 0.98) {
                 loginUserFail(dispatch)
             } else {
-                loginUserSuccess(dispatch)
+                loginUserSuccess(dispatch, email)
             }
           }, 1000);
     };
@@ -25,9 +24,10 @@ const loginUserFail = (dispatch) => {
     dispatch({ type: LOGIN_USER_FAIL });
 };
 
-const loginUserSuccess = (dispatch) => {
+const loginUserSuccess = (dispatch, email) => {
     dispatch({
         type: LOGIN_USER_SUCCESS,
+        payload: email
     });
     navigationResetTo('Member');
 };

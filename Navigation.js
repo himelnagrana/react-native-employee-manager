@@ -10,13 +10,13 @@ const MemberScreen = StackNavigator({
   MemberList: {
     screen: MemberList,
     navigationOptions: {
-      headerTitle: 'Member List',
+      headerTitle: 'List',
     },
   },
   MemberDetails: {
     screen: MemberDetails,
     navigationOptions: {
-      headerTitle: 'Member Detail',
+      headerTitle: 'Detail',
     },
   },
 });
