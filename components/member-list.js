@@ -7,6 +7,7 @@ import CardSection from './card.section';
 
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+import { navigateTo } from "../GlobalNavigator";
 
 
 class MemberList extends Component {
@@ -22,9 +23,8 @@ class MemberList extends Component {
         this.props.navigation.navigate('MemberDetails');
     }
 
-    gotoMember(emp) {
-        // with a row data
-        this.props.navigation.navigate('MemberDetails');
+    gotoMember(currentMember) {
+        navigateTo('MemberDetails', {currentMember});
     }
 
     render() {

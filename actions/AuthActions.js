@@ -1,4 +1,5 @@
 import { NavigationActions } from 'react-navigation';
+import { navigationResetTo } from '../GlobalNavigator';
 
 import {
     LOGIN_USER_SUCCESS,
@@ -9,7 +10,6 @@ import {
 export const loginUserAsync = ({ email, password }) => {
     return (dispatch) => {
         dispatch({ type: LOGIN_USER });
-        
         setTimeout(() => {
             const random = Math.random();
             if (random >= 0.75) {
@@ -29,5 +29,5 @@ const loginUserSuccess = (dispatch) => {
     dispatch({
         type: LOGIN_USER_SUCCESS,
     });
-    dispatch(NavigationActions.navigate({ routeName: 'Member' }));
+    navigationResetTo('Member');
 };

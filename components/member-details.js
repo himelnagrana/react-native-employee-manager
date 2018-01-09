@@ -23,30 +23,19 @@ class MemberDetails extends Component {
   }
 
   componentDidMount() {
-    if(this.props.member) {
+    if(this.props.navigation.state.params) {
+      mem = this.props.navigation.state.params.currentMember;
       this.setState({
-        id: this.props.member.id,
-        name: this.props.member.name,
-        phone: this.props.member.phone,
-        shift: this.props.member.shift
+        id: mem.id,
+        name: mem.name,
+        phone: mem.phone,
+        shift: mem.shift
       })
     }
   }
 
-  handleChange(event){
-    this.setState({
-        [event.target.name] : event.target.value
-    });
-  }
-
   onFirePress() {
-    const emp = {
-      id: this.state.id,
-      name: this.state.name,
-      phone: this.state.phone,
-      shift: this.state.shift,
-    }
-    this.props.deleteMember(emp)
+    this.props.deleteMember(this.state.id)
   }
 
   onSavePress() {
@@ -57,7 +46,11 @@ class MemberDetails extends Component {
         phone: this.state.phone,
         shift: this.state.shift,
       }
-      this.props.addMember(emp)
+      if(emp.id) {
+        this.props.updateMember(emp)
+      } else {
+        this.props.addMember(emp)
+      }
     } else {
       Alert.alert('Please fill all fields')
     }
@@ -89,7 +82,7 @@ class MemberDetails extends Component {
       createMember,
       deleteMember,
       updateMember,
-      loadMember
+      currentMember
     } = this.props;
 
     return (
@@ -133,13 +126,19 @@ class MemberDetails extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state.memberForm,
+const mapStateToProps = (state, ownProps) => ({
+  ...state.members,
 });
 
 const mapDispatchToProps = dispatch => ({
   addMember: (emp) =>
-      dispatch(createMember(emp)),
+    dispatch(createMember(emp)),
+  deleteMember: (id) =>
+    dispatch(deleteMember(id)),
+  loadMember: (emp) =>
+    dispatch(loadMember(emp)),
+  updateMember: (emp) =>
+    dispatch(updateMember(emp)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MemberDetails);

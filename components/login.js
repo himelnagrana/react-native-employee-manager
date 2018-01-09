@@ -21,11 +21,7 @@ class Login extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (!this.props.authenticated && nextProps.authenticated) {
-          const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({ routeName: 'Member' })],
-          });
-          this.props.navigation.dispatch(resetAction);
+         // navigationResetTo('Member');
         }
       }
 

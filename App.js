@@ -13,6 +13,7 @@ import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
 
 import Navigator from './Navigation';
+import { setNavigator } from './GlobalNavigator';
 
 const store = createStore(reducers, {}, applyMiddleware(ReduxThunk)); 
 
@@ -22,7 +23,7 @@ export default class App extends Component {
     render() {
         return (
           <Provider store={store}>
-            <Navigator />
+            <Navigator ref={nav => { setNavigator(nav); }}/>
           </Provider>
         );
       }
