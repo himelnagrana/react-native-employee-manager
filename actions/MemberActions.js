@@ -4,11 +4,7 @@ import { navigateTo } from '../GlobalNavigator';
 import {
     MEMBER_UPDATE,
     MEMBER_CREATE,
-    MEMBER_DELETE,
-    MEMBER_READ,
-    MEMBER_LIST_UPDATE_SUCCESS,
-    MEMBER_FETCH_SUCCESS,
-    MEMBER_SAVE_SUCCESS
+    MEMBER_DELETE
 } from './types';
 
 
@@ -20,14 +16,6 @@ export const createMember = (emp) => {
             payload: emp
         });
         navigateTo('Member');
-    };
-};
-
-export const loadMember = (emp) => {
-    return (dispatch) => {
-        dispatch({
-            type: MEMBER_READ,
-          });
     };
 };
 

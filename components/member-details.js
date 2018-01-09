@@ -22,6 +22,14 @@ class MemberDetails extends Component {
     }
   }
 
+  static navigationOptions = ({ navigation }) => {
+    const { params = {} } = navigation.state;
+    let headerRight = (
+      <Text style={{fontWeight: 'bold', marginRight: 10, color: 'green'}}>Hi! {params.username}</Text>            
+    );
+    return { headerRight };
+  };
+
   componentDidMount() {
     if(this.props.navigation.state.params) {
       mem = this.props.navigation.state.params.currentMember;
@@ -32,6 +40,7 @@ class MemberDetails extends Component {
         shift: mem.shift
       })
     }
+    this.props.navigation.setParams({ username: this.props.loggedInAs });
   }
 
   onFirePress() {
@@ -82,7 +91,8 @@ class MemberDetails extends Component {
       createMember,
       deleteMember,
       updateMember,
-      currentMember
+      currentMember,
+      loggedInAs
     } = this.props;
 
     return (
@@ -128,6 +138,7 @@ class MemberDetails extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   ...state.members,
+  ...state.auth
 });
 
 const mapDispatchToProps = dispatch => ({

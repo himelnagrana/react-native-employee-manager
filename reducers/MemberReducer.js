@@ -1,11 +1,7 @@
 import {
     MEMBER_UPDATE,
     MEMBER_CREATE,
-    MEMBER_DELETE,
-    MEMBER_READ,
-    MEMBER_LIST_UPDATE_SUCCESS,
-    MEMBER_FETCH_SUCCESS,
-    MEMBER_SAVE_SUCCESS
+    MEMBER_DELETE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -16,9 +12,6 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-
-        case MEMBER_FETCH_SUCCESS:
-            return action.payload;
 
         case MEMBER_UPDATE:
             return {
@@ -46,14 +39,6 @@ export default (state = INITIAL_STATE, action) => {
                     ...state.allMembers.slice(objIndex + 1)
                 ]
             }
-
-        case MEMBER_READ: 
-            return action.payload;
-
-        case MEMBER_LIST_UPDATE_SUCCESS: 
-        
-        case MEMBER_SAVE_SUCCESS:
-            return INITIAL_STATE;
         
         default:
             return state;
